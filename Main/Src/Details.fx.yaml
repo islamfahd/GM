@@ -1,0 +1,1133 @@
+"Details As screen.'phoneDetailViewLayout_ver3.0'":
+    Fill: =RGBA(216, 226, 232, 1)
+    LoadingSpinnerColor: =RGBA(68, 57, 38, 1)
+
+    "'Title Bar' As rectangle":
+        BorderColor: =RGBA(119, 77, 3, 1)
+        Fill: =RGBA(68, 57, 38, 1)
+        Height: =88
+        Width: =Parent.Width
+        ZIndex: =1
+
+    Back As icon.ChevronLeft:
+        AccessibleLabel: =Self.Tooltip
+        BorderColor: =RGBA(119, 77, 3, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        Height: =88
+        Icon: =Icon.ChevronLeft
+        OnSelect: =Navigate(Browse, ScreenTransition.None)
+        PaddingBottom: =24
+        PaddingLeft: =24
+        PaddingRight: =24
+        PaddingTop: =24
+        PressedFill: =RGBA(255, 255, 255, 0.3)
+        TabIndex: =0
+        Tooltip: ="Back to list"
+        Width: =88
+        ZIndex: =2
+
+    Edit As icon.Edit:
+        AccessibleLabel: =Self.Tooltip
+        BorderColor: =RGBA(119, 77, 3, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        DisplayMode: =If(DataSourceInfo([@'GM Analysis'], DataSourceInfo.EditPermission), DisplayMode.Edit, DisplayMode.Disabled)
+        Height: =88
+        Icon: =Icon.Edit
+        OnSelect: =EditForm(NewRecord);Navigate('New Record', ScreenTransition.None)
+        PaddingBottom: =24
+        PaddingLeft: =24
+        PaddingRight: =24
+        PaddingTop: =24
+        PressedFill: =RGBA(255, 255, 255, 0.3)
+        TabIndex: =0
+        Tooltip: ="Edit this item"
+        Width: =88
+        X: =Parent.Width - Self.Width
+        ZIndex: =3
+
+    Delete As icon.Trash:
+        AccessibleLabel: =Self.Tooltip
+        BorderColor: =RGBA(119, 77, 3, 1)
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(166, 166, 166, 1)
+        DisabledColor: =RGBA(244, 244, 244, 1)
+        DisplayMode: =If(!IsBlank(BrowseGallery1.Selected) && DataSourceInfo([@'GM Analysis'], DataSourceInfo.DeletePermission), DisplayMode.Edit, DisplayMode.Disabled)
+        Height: =88
+        Icon: =Icon.Trash
+        OnSelect: =Remove([@'GM Analysis'], BrowseGallery1.Selected); If (IsEmpty(Errors([@'GM Analysis'], BrowseGallery1.Selected)), Back())
+        PaddingBottom: =24
+        PaddingLeft: =24
+        PaddingRight: =24
+        PaddingTop: =24
+        PressedFill: =RGBA(255, 255, 255, 0.3)
+        TabIndex: =0
+        Tooltip: ="Delete this item"
+        Width: =88
+        X: =Parent.Width - Edit.Width - Self.Width
+        ZIndex: =4
+
+    Title As label:
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(166, 166, 166, 1)
+        Height: =88
+        Size: =27
+        Text: ="GM Analysis"
+        Width: =Parent.Width - Self.X - Delete.Width - Edit.Width
+        Wrap: =false
+        X: =80
+        ZIndex: =5
+
+    "'Details Frorm' As formViewer":
+        BorderColor: =RGBA(119, 77, 3, 1)
+        DataSource: =[@'GM Analysis']
+        Height: =Parent.Height - 'Details Frorm'.Y
+        Item: =BrowseGallery1.Selected
+        Width: =Parent.Width
+        Y: ='Title Bar'.Y + 'Title Bar'.Height
+        ZIndex: =6
+
+        Line As typedDataCard.comboBoxViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Line"
+            Default: =ThisItem.Line
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Line)
+            Fill: =RGBA(216, 226, 232, 1)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue1.Selected
+            Width: =640
+            WidthFit: =false
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            DataCardKey1 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue1 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(68, 57, 38, 1)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(68, 57, 38, 1), -20%)
+                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(216, 226, 232, 1)
+                Height: =70
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 224, 151, 1)
+                Items: =Choices([@'GM Analysis'].Line)
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(119, 77, 3, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('GM Analysis'.Line,DataCardValue1.SearchText)
+                SelectionFill: =RGBA(68, 57, 38, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                ZIndex: =2
+
+            ErrorMessage1 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue1.Y + DataCardValue1.Height
+                ZIndex: =3
+
+            StarVisible1 As label:
+                Align: =Align.Center
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey1.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey1.Y
+                ZIndex: =4
+
+        "'Cell Number_DataCard1' As typedDataCard.comboBoxViewCard":
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Line_x003a_Cell_x0023_Text"
+            Default: =ThisItem.'Cell Number'
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,'Cell Number')
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue24.Selected
+            Width: =640
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            DataCardKey25 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue24 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(68, 57, 38, 1)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(68, 57, 38, 1), -20%)
+                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(216, 226, 232, 1)
+                Height: =70
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 224, 151, 1)
+                Items: =Choices([@'GM Analysis'].'Cell Number')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(119, 77, 3, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('GM Analysis'.'Cell Number',DataCardValue24.SearchText)
+                SelectionFill: =RGBA(68, 57, 38, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey25.Y + DataCardKey25.Height + 5
+                ZIndex: =2
+
+            ErrorMessage14 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue24.Y + DataCardValue24.Height
+                ZIndex: =3
+
+            StarVisible14 As label:
+                Align: =Align.Center
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey25.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey25.Y
+                ZIndex: =4
+
+        "'Type of GM' As typedDataCard.comboBoxViewCard":
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="TypeofGM"
+            Default: =ThisItem.'Type of GM'
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,'Type of GM')
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue2.Selected
+            Width: =640
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            DataCardKey2 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue2 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(68, 57, 38, 1)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(68, 57, 38, 1), -20%)
+                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(216, 226, 232, 1)
+                Height: =70
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 224, 151, 1)
+                Items: =Choices([@'GM Analysis'].'Type of GM')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(119, 77, 3, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('GM Analysis'.'Type of GM',DataCardValue2.SearchText)
+                SelectionFill: =RGBA(68, 57, 38, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey2.Y + DataCardKey2.Height + 5
+                ZIndex: =2
+
+            ErrorMessage2 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue2.Y + DataCardValue2.Height
+                ZIndex: =3
+
+            StarVisible2 As label:
+                Align: =Align.Center
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey2.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey2.Y
+                ZIndex: =4
+
+        Section As typedDataCard.comboBoxViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Section"
+            Default: =ThisItem.Section
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Section)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue3.Selected
+            Width: =640
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            DataCardKey3 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue3 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(68, 57, 38, 1)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(68, 57, 38, 1), -20%)
+                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(216, 226, 232, 1)
+                Height: =70
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 224, 151, 1)
+                Items: =Choices([@'GM Analysis'].Section)
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(119, 77, 3, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('GM Analysis'.Section,DataCardValue3.SearchText)
+                SelectionFill: =RGBA(68, 57, 38, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey3.Y + DataCardKey3.Height + 5
+                ZIndex: =2
+
+            ErrorMessage3 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue3.Y + DataCardValue3.Height
+                ZIndex: =3
+
+            StarVisible3 As label:
+                Align: =Align.Center
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey3.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey3.Y
+                ZIndex: =4
+
+        Side As typedDataCard.comboBoxViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Side"
+            Default: =ThisItem.Side
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Side)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue4.Selected
+            Width: =640
+            X: =0
+            Y: =4
+            ZIndex: =1
+
+            DataCardKey4 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue4 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(68, 57, 38, 1)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(68, 57, 38, 1), -20%)
+                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(216, 226, 232, 1)
+                Height: =70
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 224, 151, 1)
+                Items: =Choices([@'GM Analysis'].Side)
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(119, 77, 3, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('GM Analysis'.Side,DataCardValue4.SearchText)
+                SelectionFill: =RGBA(68, 57, 38, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey4.Y + DataCardKey4.Height + 5
+                ZIndex: =2
+
+            ErrorMessage4 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue4.Y + DataCardValue4.Height
+                ZIndex: =3
+
+            StarVisible4 As label:
+                Align: =Align.Center
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey4.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey4.Y
+                ZIndex: =4
+
+        "'Step#' As typedDataCard.textualViewCard":
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Step_x0023_"
+            Default: |-
+                =ThisItem.'Step#'
+            DisplayMode: =DisplayMode.View
+            DisplayName: |-
+                =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,'Step#')
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =false
+            Width: =640
+            X: =0
+            Y: =5
+            ZIndex: =1
+
+            DataCardKey5 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue5 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey5.Y + DataCardKey5.Height + 5
+                ZIndex: =2
+
+        "'Station#' As typedDataCard.textualViewCard":
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Station_x0023_"
+            Default: |-
+                =ThisItem.'Station#'
+            DisplayMode: =DisplayMode.View
+            DisplayName: |-
+                =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,'Station#')
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =false
+            Width: =640
+            X: =0
+            Y: =6
+            ZIndex: =1
+
+            DataCardKey6 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue6 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey6.Y + DataCardKey6.Height + 5
+                ZIndex: =2
+
+        Symptoms As typedDataCard.textualViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Symptoms"
+            Default: =ThisItem.Symptoms
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Symptoms)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =true
+            Width: =640
+            X: =0
+            Y: =7
+            ZIndex: =1
+
+            DataCardKey7 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue7 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey7.Y + DataCardKey7.Height + 5
+                ZIndex: =2
+
+        Category_DataCard2 As typedDataCard.comboBoxViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Category"
+            Default: =ThisItem.Category
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Category)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue21.Selected
+            Width: =640
+            X: =0
+            Y: =8
+            ZIndex: =1
+
+            DataCardKey18 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue21 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(68, 57, 38, 1)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(68, 57, 38, 1), -20%)
+                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(216, 226, 232, 1)
+                Height: =70
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 224, 151, 1)
+                Items: =Choices([@'GM Analysis'].Category)
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(119, 77, 3, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('GM Analysis'.Category,DataCardValue21.SearchText)
+                SelectionFill: =RGBA(68, 57, 38, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey18.Y + DataCardKey18.Height + 5
+                ZIndex: =2
+
+            ErrorMessage13 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue21.Y + DataCardValue21.Height
+                ZIndex: =3
+
+            StarVisible13 As label:
+                Align: =Align.Center
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey18.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey18.Y
+                ZIndex: =4
+
+        "'Root Cause' As typedDataCard.textualViewCard":
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="RootCause"
+            Default: =ThisItem.'Root Cause'
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,'Root Cause')
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =true
+            Width: =640
+            X: =0
+            Y: =9
+            ZIndex: =1
+
+            DataCardKey8 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue8 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey8.Y + DataCardKey8.Height + 5
+                ZIndex: =2
+
+        Action_DataCard2 As typedDataCard.textualViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Action"
+            Default: =ThisItem.Action
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Action)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =true
+            Width: =640
+            X: =0
+            Y: =10
+            ZIndex: =1
+
+            DataCardKey17 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue20 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey17.Y + DataCardKey17.Height + 5
+                ZIndex: =2
+
+        "'Team Member_DataCard2' As typedDataCard.comboBoxViewCard":
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="TeamMember"
+            Default: =ThisItem.'Team Member'
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,'Team Member')
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =DataCardValue27.Selected
+            Width: =640
+            X: =0
+            Y: =11
+            ZIndex: =1
+
+            DataCardKey28 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue27 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                ChevronBackground: =RGBA(68, 57, 38, 1)
+                ChevronDisabledBackground: =RGBA(166, 166, 166, 1)
+                ChevronDisabledFill: =RGBA(244, 244, 244, 1)
+                ChevronHoverBackground: =ColorFade(RGBA(68, 57, 38, 1), -20%)
+                ChevronHoverFill: =RGBA(255, 255, 255, 1)
+                DefaultSelectedItems: =Parent.Default
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Fill: =RGBA(216, 226, 232, 1)
+                Height: =70
+                HoverColor: =RGBA(0, 0, 0, 1)
+                HoverFill: =RGBA(255, 224, 151, 1)
+                Items: =Choices([@'GM Analysis'].'Team Member')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PressedColor: =RGBA(255, 255, 255, 1)
+                PressedFill: =RGBA(119, 77, 3, 1)
+                SearchFields: =["Value"]
+                SearchItems: =Choices('GM Analysis'.'Team Member',DataCardValue27.SearchText)
+                SelectionFill: =RGBA(68, 57, 38, 1)
+                SelectMultiple: =false
+                Size: =21
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey28.Y + DataCardKey28.Height + 5
+                ZIndex: =2
+
+            ErrorMessage19 As label:
+                AutoHeight: =true
+                Color: =RGBA(168, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue27.Y + DataCardValue27.Height
+                ZIndex: =3
+
+            StarVisible19 As label:
+                Align: =Align.Center
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =DataCardKey28.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey28.Y
+                ZIndex: =4
+
+        START_DataCard1 As typedDataCard.textualViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="DataandTime"
+            Default: =ThisItem.START
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,START)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =true
+            Width: =640
+            X: =0
+            Y: =12
+            ZIndex: =1
+
+            DataCardKey26 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue25 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey26.Y + DataCardKey26.Height + 5
+                ZIndex: =2
+
+        END_DataCard1 As typedDataCard.textualViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="END"
+            Default: =ThisItem.END
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,END)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =true
+            Width: =640
+            X: =0
+            Y: =13
+            ZIndex: =1
+
+            DataCardKey24 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue23 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey24.Y + DataCardKey24.Height + 5
+                ZIndex: =2
+
+        Duration_DataCard1 As typedDataCard.textualViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Duration"
+            Default: =ThisItem.Duration
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Duration)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =40
+            Required: =false
+            Width: =640
+            X: =0
+            Y: =14
+            ZIndex: =1
+
+            DataCardKey23 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue22 As label:
+                AutoHeight: =true
+                BorderColor: =RGBA(119, 77, 3, 1)
+                Color: =RGBA(0, 0, 0, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                DisplayMode: =Parent.DisplayMode
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: =Text(Value(Parent.Default, "en-US"), "0", "en-US")&" Minutes."
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey23.Y + DataCardKey23.Height + 5
+                ZIndex: =2
+
+        Picture_DataCard2 As typedDataCard.largeImageViewCard:
+            BorderColor: =RGBA(119, 77, 3, 1)
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="Picture"
+            Default: =ThisItem.Picture
+            DisplayMode: =DisplayMode.View
+            DisplayName: =DataSourceInfo([@'GM Analysis'],DataSourceInfo.DisplayName,Picture)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Width: =640
+            X: =0
+            Y: =15
+            ZIndex: =1
+
+            DataCardKey27 As label:
+                AutoHeight: =true
+                Color: =RGBA(119, 77, 3, 1)
+                DisabledColor: =RGBA(166, 166, 166, 1)
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue26 As image:
+                BorderColor: =RGBA(119, 77, 3, 1)
+                DisabledBorderColor: =RGBA(166, 166, 166, 1)
+                DisabledFill: =RGBA(244, 244, 244, 1)
+                DisplayMode: =Parent.DisplayMode
+                Height: =320
+                Image: =Parent.Default
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey27.Y + DataCardKey27.Height + 5
+                ZIndex: =2
+

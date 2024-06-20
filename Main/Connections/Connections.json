@@ -1,0 +1,36 @@
+{
+  "b5ea4efb-6365-4eab-826b-ce57d9805daf": {
+    "appActions": [
+      "providers/PowerPlatform.Governance/Operations/Read",
+      "providers/PowerPlatform.Governance/Operations/Write",
+      "providers/PowerPlatform.Governance/Operations/Delete"
+    ],
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1693/1.0.1693.3738/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://methode.sharepoint.com/sites/AssemblyTPMTesting": {
+        "dataSources": {
+          "Comments": {
+            "tableName": "eaa61331-a02a-4e17-a36e-3108cdda63bb"
+          },
+          "GM Analysis": {
+            "tableName": "a9ecd3f7-e5aa-434b-8ff6-cbd338cd3833"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "GM Analysis",
+      "Comments"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "b5ea4efb-6365-4eab-826b-ce57d9805daf"
+  }
+}
